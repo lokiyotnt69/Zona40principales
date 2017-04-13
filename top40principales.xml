@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
-
-
-
-
 <item>
-<title>[COLOR lime]**LOS 40 PRINCIPALES**[/COLOR] </title>
+<title>[COLOR lime]**TOP 40 PRINCIPALES**[/COLOR] </title>
 <link>$doregex[makelist2]</link>
 
 
@@ -94,6 +90,7 @@ def GetLSProData(page_data,Cookie_Jar,m):
 <thumbnail></thumbnail>
 <fanart></fanart>
 </item>
+
 
 
 
