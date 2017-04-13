@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+
+
+
+
+<item>
+<title>[COLOR lime]**LOS 40 PRINCIPALES**[/COLOR] </title>
+<link>$doregex[makelist2]</link>
+
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>Página [makelist2.param1]</title>
+<link>$doregex[makelist3]</link>
+<referer></referer>
+<thumbnail></thumbnail>
+]]></listrepeat>
+<expres> (.*?),</expres>
+<page>$doregex[get-number]</page>
+<cookieJar></cookieJar>
+</regex>
+
+<regex>
+            <name>makelist3</name>
+            <listrepeat><![CDATA[
+                        <title>[makelist3.param2]</title>
+                        <link>plugin://plugin.video.youtube/play/?video_id=[makelist3.param1]</link>
+                        <thumbnail>https://i.ytimg.com/vi/[makelist3.param1]/hqdefault.jpg</thumbnail>
+            ]]></listrepeat>
+            <expres>spf-link " dir="ltr" href="\/watch\?v=(.*?)&amp;.*?\n(.*)</expres>
+            <page>$doregex[get-source-page]</page>
+             <cookieJar></cookieJar>
+</regex>
+
+<regex>
+<name>get-number</name>
+<expres><![CDATA[#$pyFunction
+def GetLSProData(page_data,Cookie_Jar,m):            
+
+ import requests
+ import re
+ url='https://www.youtube.com/watch?v=t8nu-crjc8E&index=25&list=PL7074F24FB985F7A0' 
+ headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686; rv:42.0) Gecko/20100101 Firefox/42.0 Iceweasel/42.0', 'Accept-Language': 'en-US'}
+
+ rr = requests.get(url, headers=headers)
+ number = re.findall('</a></li><li>(.*?) vid', rr.text)[0]
+ #number = number.encode('unicode-escape')
+ number = number.replace(',', '')
+ real = int(float(number)) / 100
+ real2 = real + 3
+
+ liste = list(range(real2))
+ return liste
+]]></expres>
+<page></page>
+</regex>
+
+<regex>
+<name>get-source-page</name>
+<expres><![CDATA[#$pyFunction
+def GetLSProData(page_data,Cookie_Jar,m):
+
+ import requests
+ import re
+ import json
+
+ pageUrl='https://www.youtube.com/watch?v=t8nu-crjc8E&index=25&list=PL7074F24FB985F7A0'
+ headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686; rv:42.0) Gecko/20100101 Firefox/42.0 Iceweasel/42.0'}
+ r1 = requests.get(pageUrl, headers = headers)
+ source = r1.text
+ page = [makelist2.param1]
+ N = int(float(page))
+ pre = 'https://www.youtube.com'
+ if (N > 1):
+
+   for itr in range (1,N):
+    continuex = re.findall('data-uix-load-more-href="(.*?)"', source)[0]
+    continuationx = pre + continuex
+    r = requests.get(continuationx, headers = headers)
+    source = r.text
+    jdata = json.loads(source)
+    source = jdata["load_more_widget_html"]
+    page = jdata["content_html"]
+   return page
+    
+ else:
+
+  return source
+]]></expres>
+<page></page>
+</regex>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+
+
+
+
+
+<item>
+<title>SUBEME LA RADIO </title>
+<urlsolve>https://www.youtube.com/watch?v=9sg-A-eS6Ig&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Ed Sheeran - Shape of You</title>
+<urlsolve>https://www.youtube.com/watch?v=JGwWNGJdvx8&index=2&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Kygo, Selena Gomez - It Ain't Me</title>
+<urlsolve>https://www.youtube.com/watch?v=D5drYkLiLI8&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=3</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Katy Perry - Chained To The Rhythm</title>
+<urlsolve>https://www.youtube.com/watch?v=Um7pMggPnug&index=4&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+
+
+<item>
+<title>The Chainsmokers & Coldplay - Something Just </title>
+<urlsolve>https://www.youtube.com/watch?v=4u6bWs-ZG0o&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=5</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Kaleo - Way Down We Go </title>
+<urlsolve>https://www.youtube.com/watch?v=0-7IHOXkiV8&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=6</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>DESPACITO</title>
+<urlsolve>https://www.youtube.com/watch?v=kJQP7kiw5Fk&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=7</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Martin Garrix & Dua Lipa - Scared To Be Lonely </title>
+<urlsolve>https://www.youtube.com/watch?v=e2vBLd5Egnk&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=8</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Bruno Mars - That’s What I Like</title>
+<urlsolve>https://www.youtube.com/watch?v=PMivT7MJ41M&index=9&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Manuel Carrasco - Tambores De Guerra</title>
+<urlsolve>https://www.youtube.com/watch?v=619JpnefK0k&index=10&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Burak Yeter - Tuesday ft. Danelle Sandoval</title>
+<urlsolve>https://www.youtube.com/watch?v=Y1_VsyLAGuk&index=11&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Jax Jones - You Don't Know Me</title>
+<urlsolve>https://www.youtube.com/watch?v=WH9C6oLEtOg&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=12</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>The Weeknd - I Feel It Coming ft. Daft Punk</title>
+<urlsolve>https://www.youtube.com/watch?v=qFLhGq0060w&index=13&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>J. Balvin - Sigo Extrañándote</title>
+<urlsolve>https://www.youtube.com/watch?v=nZ0zbsZOdwg&index=14&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Blas Cantó - In Your Bed</title>
+<urlsolve>https://www.youtube.com/watch?v=YSGBQbkmEPg&index=16&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Dimitri Vegas & Like Mike vs Diplo - Hey Baby </title>
+<urlsolve>https://www.youtube.com/watch?v=kIll0-AyMa0&index=17&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Dvicio - Casi Humanos</title>
+<urlsolve>https://www.youtube.com/watch?v=bI7O40OEHRg&index=18&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Shakira - Me Enamoré</title>
+<urlsolve>https://www.youtube.com/watch?v=T0ivG4Ew-Lk&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=19</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Starley - Call On Me</title>
+<urlsolve>https://www.youtube.com/watch?v=I-VsisgVkHw&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=20</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Piso 21 - Me llamas </title>
+<urlsolve>https://www.youtube.com/watch?v=F3uzNaw-uhE&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=21</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>David Otero - Aire</title>
+<urlsolve>https://www.youtube.com/watch?v=x9GZ4GeTUoc&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=22</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Bebe Rexha - I Got You </title>
+<urlsolve>https://www.youtube.com/watch?v=uEJuoEs1UxY&index=23&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Cali Y El Dandee - Lumbra ft. Shaggy</title>
+<urlsolve>https://www.youtube.com/watch?v=VPLY7F2oQD0&index=24&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Sweet California - Hum (feat. Juán Magán)</title>
+<urlsolve>https://www.youtube.com/watch?v=bNNwkIV_NMk&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=25</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Pitbull & J Balvin - Hey Ma ft Camila Cabello </title>
+<urlsolve>https://www.youtube.com/watch?v=UWLr2va3hu0&index=26&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Lorde - Green Light</title>
+<urlsolve>https://www.youtube.com/watch?v=dMK_npDG12Q&index=27&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Manel Navarro - Do It for Your Lover</title>
+<urlsolve>https://www.youtube.com/watch?v=Gb2eaC0yiwU&index=28&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Morat - Amor Con Hielo</title>
+<urlsolve>https://www.youtube.com/watch?v=1P5eDa_Kn2M&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=29</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Sidonie - Siglo XX</title>
+<urlsolve>https://www.youtube.com/watch?v=SKKq9jDuSJw&index=30&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Anne-Marie - Ciao Adios</title>
+<urlsolve>https://www.youtube.com/watch?v=qqob4D3BoZc&index=31&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Bombai - Solo Si Es Contigo</title>
+<urlsolve>https://www.youtube.com/watch?v=lPo-pEHAq2g&index=32&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Sia - Move Your Body</title>
+<urlsolve>https://www.youtube.com/watch?v=0GoGcVs6pbU&index=33&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Leiva - La Lluvia en los Zapatos</title>
+<urlsolve>https://www.youtube.com/watch?v=vtY8YY-N9eY&index=34&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Jason Derulo - Swalla </title>
+<urlsolve>https://www.youtube.com/watch?v=NGLxoKOvzu4&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=35</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Rag'n'Bone Man - Human</title>
+<urlsolve>https://www.youtube.com/watch?v=L3wKzyIN1yk&index=36&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>París - Dani Martín </title>
+<urlsolve>https://www.youtube.com/watch?v=_q7CMWnhV18&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=37</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Clean Bandit - Rockabye ft. Sean Paul & Anne-Marie [Official Video]</title>
+<urlsolve>https://www.youtube.com/watch?v=papuvlVeZg8&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=38</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>Fangoria - Espectacular</title>
+<urlsolve>https://www.youtube.com/watch?v=FMKgqhzBgu0&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J&index=39</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+<item>
+<title>ROBIN SCHULZ & DAVID GUETTA & CHEAT CODES – SHED A LIGHT</title>
+<urlsolve>https://www.youtube.com/watch?v=vdI0JLVhdYc&index=40&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail><https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg/thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>Collide (Howie Day Cover)</title>
+<urlsolve>https://www.youtube.com/watch?v=SDkLB5XOo8w&index=41&list=PLSFitF4B6yNS82pcRx5XvD1PB6m8lIs5J</urlsolve>
+<thumbnail>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</thumbnail>
+<fanart>https://musicak.com/wp-content/2011/09/la_lista_de_los_40_principales.jpg</fanart>
+</item>
+
+
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+<item>
+<title></title>
+<urlsolve></urlsolve>
+<thumbnail></thumbnail>
+<fanart></fanart>
+</item>
+
+
+
+
+
